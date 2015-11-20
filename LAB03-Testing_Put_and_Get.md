@@ -1,6 +1,7 @@
 # LAB 03 – TESTING JBOSS A-MQ FOR THE FIRST TIME
 
-JBoss A-MQ includes a messaging test client as part of its distribution that helps you validate that everything is working correctly. You can download the client jar library () then put it in the `<JBoss A-MQ Home>/extras` directory. 
+JBoss A-MQ includes a messaging test client as part of its distribution that helps you validate that everything is working correctly. You can download the client jar library (`mq-client-1.2.0.redhat-163.jar`) from [this site](https://repository.jboss.org/nexus/content/repositories/ea/io/fabric8/mq/mq-client/1.2.0.redhat-163/)
+then put it in the `<JBoss A-MQ Home>/extras` directory. You can rename it to `mq-client.jar` to make it simpler.
 
 To run it we will need another Terminal window. Executing `java -jar mq-client.jar` will have it list its options.
 
