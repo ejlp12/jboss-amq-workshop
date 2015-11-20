@@ -8,8 +8,8 @@ You can rename it to `mq-client.jar` to make it simpler.
 To run it we will need another Terminal window. Executing `java -jar mq-client.jar` will have it list its options.
 
 In messaging systems there are two (2) types of clients:
-• Producers – who sending messages
-• Consumers – who receive messages 
+* __Producers__ – who sending messages
+* __Consumers__ – who receive messages 
 
 So let's continue...
 
