@@ -4,6 +4,15 @@ If you are starting from scratch, and not on a lab machine, you can continue thi
 
 Installing JBoss A-MQ 6.2 is easy. You'll need to unzip the distribution into the target directory. You can get a JBoss A-MQ distribution from http://www.jboss.org/products/amq.
 
+
+![image](https://cloud.githubusercontent.com/assets/3068071/11288482/030d58ec-8f57-11e5-976b-fa4dfea625cf.png)
+
+If you have Subscription, then you can download from Red Hat Customer Portal:
+https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=jboss.amq&downloadType=distributions&version=6.2.0
+
+![image](https://cloud.githubusercontent.com/assets/3068071/11288377/00b6dac4-8f56-11e5-903c-193a0a4ef421.png)
+
+
 ```
        $ mkdir Servers
        $ cd Servers
