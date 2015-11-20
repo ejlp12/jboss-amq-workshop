@@ -24,7 +24,7 @@ java -jar mq-client.jar consumer --brokerUrl failover://tcp://localhost:61616 --
 
 The quick version of what the parameters are is:
   * `brokerUrl` – broker connection string
-  * user/password – authentication credentials (i.e. must match etc/users.properties settings)
+  * `user` / `password` – authentication credentials (i.e. must match etc/users.properties settings)
   * `destination` – JMS destination name – (queue|topic)://<name>
   * `count` – number of messages to send (producer) or wait for (consumer)
 
