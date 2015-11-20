@@ -13,17 +13,25 @@ In messaging systems there are two (2) types of clients:
 
 So let's continue...
 
-Run the two (2) following command in your Terminal. The only difference between the two (2) is the first argument: producer or consumer. If you try to run this in a single Terminal, you need to run the producer version first, as the consumer will wait (block) for messages. You will ultimately want to have, at least, two Terminal windows going, so you might as well do that now...
+Run the two (2) following command in your Terminal. The only difference between the two (2) is the first argument: `producer` or `consumer`. 
+
+If you try to run this in a single Terminal, you need to run the producer version first, as the consumer will wait (block) for messages. You will ultimately want to have, at least, two Terminal windows going, so you might as well do that now...
+
+Run Producer:
 
 ```
 java -jar mq-client.jar producer --brokerUrl failover://tcp://localhost:61616 --user admin --password admin --destination queue://summit.test --count 10
 ```
+
+You will see that Producer is producing 10 messages and put it into queue with name `summit.test` in the A-MQ.
 
 Run Consumer:
 
 ```
 java -jar mq-client.jar consumer --brokerUrl failover://tcp://localhost:61616 --user admin --password admin --destination queue://summit.test --count 10
 ```
+You will see that Producer is getting 10 messages from the same queue name in the A-MQ.
+
 
 The quick version of what the parameters are is:
   * `brokerUrl` – broker connection string
