@@ -2,13 +2,13 @@
 
 We're now going to do a walk through of creating a local Master/Slave failover pair of JBoss A-MQ servers.
 
-One of the ways JBoss A-MQ handles server faults is through the use of Master/Slave (aka Active/Passive) pairs of servers. The important part is that the Master/Slave nodes MUST reference the same ActiveMQ persistence store. 
+One of the ways JBoss A-MQ handles server faults is through the use of **Master/Slave (aka Active/Passive)** pairs of servers. The important part is that the Master/Slave nodes MUST reference the same ActiveMQ persistence store. 
 
 To be clear, we are talking about the messages stored within an JBoss A-MQ persistent store. That is, messages that have been sent (produced) to a node waiting to be received (consumed). A message lives in one and only one JBoss A-MQ node at any point. So when a node is off (either as a controller shutdown or a system fault), its persistent messages are safely stored in its persistent store waiting for some nice JBoss A-MQ node to reference it and dispatch its messages...
 
 JBoss A-MQ can do Fault Tolerance using other techniques (e.g. RHEL High Availability, or replicated stores), but that's beyond the scope of this lab...
 
-Since we don't have a SAN (GFS2 or NFS v4) or a shared RDBMS available to us (“I know I just had it in my pocket the other day...”), we're going to do this lab with a shared local directory. In the real world, you would want your Master node and Slave node(s) on different machines to allow you to recover from machine failure. The default configuration (see Lab 07 - ActiveMQ Configuration) uses a file based persistent store (KahaDB). So if we create two containers that reference the same configuration (with the shared reference to the same directory), we should be good...
+Since we don't have a SAN (GFS2 or NFS v4) or a shared RDBMS available to us (“I know I just had it in my pocket the other day...”), we're going to do this lab with a shared local directory. In the real world, you would want your Master node and Slave node(s) on different machines to allow you to recover from machine failure. The default configuration (see Lab 06 - ActiveMQ Configuration) uses a file based persistent store (KahaDB). So if we create two containers that reference the same configuration (with the shared reference to the same directory), we should be good...
 
 Make sense? Let's try and see if that helps...
 
@@ -47,4 +47,4 @@ Give the container a name. The profile specifies “2” as the number of contai
 ![image](https://cloud.githubusercontent.com/assets/3068071/12401317/321413c6-be58-11e5-9925-39a53e285a73.png)
 
 And that’s it! We now have two brokers running, one is a master and one is a slave. We can see them listed in the containers list (the master broker has the little broker icon off to the right) as well as in the Services->MQ tab. Click it and guess which one is the master. :)
-Give the container a name. The profile specifies “2” as the number of containers to create. So leave the default and click “Create and Start Container”
+
