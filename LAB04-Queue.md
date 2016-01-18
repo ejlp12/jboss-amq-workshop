@@ -67,6 +67,7 @@ Using destination: queue://workshop.test, on broker: failover://tcp://localhost:
 [io.fabric8.mq.ConsumerThread] : Thread-2 Received test message: 7
 [io.fabric8.mq.ConsumerThread] : Thread-2 Received test message: 9
 ...
+```
 
 **Consumer2**
 ```
@@ -81,11 +82,14 @@ Using destination: queue://workshop.test, on broker: failover://tcp://localhost:
 [io.fabric8.mq.ConsumerThread] : Thread-2 Received test message: 8
 [io.fabric8.mq.ConsumerThread] : Thread-2 Received test message: 10
 ...
-
 ```
 
 Notice how in the Consumers, the messages are interleaving, in this case Consumer1 is getting all the odd numbered messages, and Consumer2 is getting all the even numbered message. In messaging this is called Competing Consumers. JBoss A-MQ will, by default, round robin load balance message dispatch across all the consumers on a Queue.
 
-Try some different combinations for producers and consumers on your own. The most important part is ensuring they are all connecting to the same `--destination` (the JMS specification calls Queues and Topics generically Destinations). You can also increase the delay between message send (`--sleep`) in the producer if you'd like to try starting a mid-way...
+5. Try some different combinations for producers and consumers on your own. 
 
-Also try running the producer only, and then the consumer only. You should see A-MQ store the messages in-between. This is a key benefit of JMS Queues in that they allow producers and consumers to communication asynchronously, meaning they don't both have to be running at the same time to receive messages. This can be a big benefit to many systems designs where one system can be done for maintenance, while other systems can continue sending and receiving messages...
+   The most important part is ensuring they are all connecting to the same `--destination` (the JMS specification calls Queues and Topics generically Destinations). You can also increase the delay between message send (`--sleep`) in the producer if you'd like to try starting a mid-way...
+
+6. Also try running the producer only, and then the consumer only. 
+
+   You should see A-MQ store the messages in-between. This is a key benefit of JMS Queues in that they allow producers and consumers to communication asynchronously, meaning they don't both have to be running at the same time to receive messages. This can be a big benefit to many systems designs where one system can be done for maintenance, while other systems can continue sending and receiving messages...
