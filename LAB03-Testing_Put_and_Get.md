@@ -30,6 +30,8 @@ JBoss A-MQ includes a messaging test client as part of its distribution that hel
 
    You will see that Producer is producing 10 messages and put it into queue with name `summit.test` in the A-MQ.
    
+   ![image](https://cloud.githubusercontent.com/assets/3068071/12399318/d9adac12-be4b-11e5-935b-668dc7bcdc5e.png)
+   
    Run Consumer:
    
    ```
@@ -37,6 +39,7 @@ JBoss A-MQ includes a messaging test client as part of its distribution that hel
    ```
    You will see that Producer is getting 10 messages from the same queue name in the A-MQ.
    
+   ![image](https://cloud.githubusercontent.com/assets/3068071/12399322/e2132efe-be4b-11e5-8762-c001df57f0f3.png)
 
    The quick version of what the parameters are is:
      * `brokerUrl` – broker connection string
