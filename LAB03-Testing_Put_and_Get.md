@@ -1,43 +1,48 @@
 # LAB 03 – TESTING JBOSS A-MQ FOR THE FIRST TIME
 
-JBoss A-MQ includes a messaging test client as part of its distribution that helps you validate that everything is working correctly. You can download the client jar library (`mq-client-1.2.0.redhat-163.jar`) from [this site](https://repository.jboss.org/nexus/content/repositories/ea/io/fabric8/mq/mq-client/1.2.0.redhat-163/)
-then put it in the `<JBoss A-MQ Home>/extras` directory. 
+JBoss A-MQ includes a messaging test client as part of its distribution that helps you validate that everything is working correctly. 
 
-You can rename it to `mq-client.jar` to make it simpler.
+1. Download client application
 
-To run it we will need another Terminal window. Executing `java -jar mq-client.jar` will have it list its options.
+   You can download the client jar library (`mq-client-1.2.0.redhat-163.jar`) from [this site](https://repository.jboss.org/nexus/content/repositories/ea/io/fabric8/mq/mq-client/1.2.0.redhat-163/) then put it in the `<JBoss A-MQ Home>/extras` directory. 
 
-In messaging systems there are two (2) types of clients:
-* __Producers__ – who sending messages
-* __Consumers__ – who receive messages 
+   You can rename it to `mq-client.jar` to make it simpler.
 
-So let's continue...
+2. Run application
 
-Run the two (2) following command in your Terminal. The only difference between the two (2) is the first argument: `producer` or `consumer`. 
+   To run it we will need another Terminal window. Executing `java -jar mq-client.jar` will have it list its options.
 
-If you try to run this in a single Terminal, you need to run the producer version first, as the consumer will wait (block) for messages. You will ultimately want to have, at least, two Terminal windows going, so you might as well do that now...
+   In messaging systems there are two (2) types of clients:
+   * __Producers__ – who sending messages
+   * __Consumers__ – who receive messages 
 
-Run Producer:
+   So let's continue...
 
-```
-java -jar mq-client.jar producer --brokerUrl failover://tcp://localhost:61616 --user admin --password admin --destination queue://summit.test --count 10
-```
+   Run the two (2) following command in your Terminal. The only difference between the two (2) is the first argument: `producer` or `consumer`. 
 
-You will see that Producer is producing 10 messages and put it into queue with name `summit.test` in the A-MQ.
+   If you try to run this in a single Terminal, you need to run the producer version first, as the consumer will wait (block) for messages. You will ultimately want to have, at least, two Terminal windows going, so you might as well do that now...
 
-Run Consumer:
+   Run Producer:
 
-```
-java -jar mq-client.jar consumer --brokerUrl failover://tcp://localhost:61616 --user admin --password admin --destination queue://summit.test --count 10
-```
-You will see that Producer is getting 10 messages from the same queue name in the A-MQ.
+   ```
+   java -jar mq-client.jar producer --brokerUrl failover://tcp://localhost:61616 --user admin --password admin --destination queue://summit.test --count 10
+   ```
 
+   You will see that Producer is producing 10 messages and put it into queue with name `summit.test` in the A-MQ.
+   
+   Run Consumer:
+   
+   ```
+   java -jar mq-client.jar consumer --brokerUrl failover://tcp://localhost:61616 --user admin --password admin --destination queue://summit.test --count 10
+   ```
+   You will see that Producer is getting 10 messages from the same queue name in the A-MQ.
+   
 
-The quick version of what the parameters are is:
-  * `brokerUrl` – broker connection string
-  * `user` / `password` – authentication credentials (i.e. must match etc/users.properties settings)
-  * `destination` – JMS destination name – (queue|topic)://<name>
-  * `count` – number of messages to send (producer) or wait for (consumer)
+   The quick version of what the parameters are is:
+     * `brokerUrl` – broker connection string
+     * `user` / `password` – authentication credentials (i.e. must match etc/users.properties settings)
+     * `destination` – JMS destination name – (queue|topic)://<name>
+     * `count` – number of messages to send (producer) or wait for (consumer)
 
-The connection string uses the Apache ActiveMQ failover transport (`failover:// `prefix) that has the client automatically re-connect when the connection is lost. It is followed by `tcp://<hostname>:<port>`.
+   The connection string uses the Apache ActiveMQ failover transport (`failover:// `prefix) that has the client automatically re-connect when the connection is lost. It is followed by `tcp://<hostname>:<port>`.
 
