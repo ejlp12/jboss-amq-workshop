@@ -48,3 +48,96 @@ Give the container a name. The profile specifies “2” as the number of contai
 
 And that’s it! We now have two brokers running, one is a master and one is a slave. We can see them listed in the containers list (the master broker has the little broker icon off to the right) as well as in the Services->MQ tab. Click it and guess which one is the master. :)
 
+![image](https://cloud.githubusercontent.com/assets/3068071/12401426/d237f9d0-be58-11e5-8153-0063a49403e5.png)
+
+## Test
+
+Now let’s test out our clients again.
+
+Open up terminal window, and run the following command:
+
+```
+java -jar extras/mq-client.jar producer \
+     --brokerUrl discovery:fabric:default \
+     --user admin --password admin \
+     --destination queue://workshop.test \
+     --count 10
+```
+
+Notice that we are now giving a brokerUrl of `discovery:fabric:default`. This tells the JBoss A-MQ client library to use its pluggable discovery mechanism to look up the connection information for these JBoss A-MQ nodes from the Fabric registry on the local machine (we'd need to provide a system property `-Dzookeeper.url=<host>:<port>` if we wanted to connect to a Fabric Registry on a different machine). You should see the following result:
+
+```
+$java -jar extras/mq-client.jar producer --brokerUrl discovery:fabric:default --user admin --password admin --destination queue://workshop.test --count 10
+Using destination: queue://workshop.test, on broker: discovery:fabric:default
+[io.fabric8.mq.fabric.discovery.FabricDiscoveryAgent] : Using local ZKClient
+[org.apache.curator.framework.imps.CuratorFrameworkImpl] : Starting
+[org.apache.zookeeper.ZooKeeper] : Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT
+[org.apache.zookeeper.ZooKeeper] : Client environment:host.name=localhost.localdomain
+[org.apache.zookeeper.ZooKeeper] : Client environment:java.version=1.8.0_45
+[org.apache.zookeeper.ZooKeeper] : Client environment:java.vendor=Oracle Corporation
+[org.apache.zookeeper.ZooKeeper] : Client environment:java.home=/opt/java/jdk1.8.0_45/jre
+[org.apache.zookeeper.ZooKeeper] : Client environment:java.class.path=extras/mq-client.jar
+[org.apache.zookeeper.ZooKeeper] : Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+[org.apache.zookeeper.ZooKeeper] : Client environment:java.io.tmpdir=/tmp
+[org.apache.zookeeper.ZooKeeper] : Client environment:java.compiler=<NA>
+[org.apache.zookeeper.ZooKeeper] : Client environment:os.name=Linux
+[org.apache.zookeeper.ZooKeeper] : Client environment:os.arch=amd64
+[org.apache.zookeeper.ZooKeeper] : Client environment:os.version=3.19.8-100.fc20.x86_64
+[org.apache.zookeeper.ZooKeeper] : Client environment:user.name=jreagan
+[org.apache.zookeeper.ZooKeeper] : Client environment:user.home=/home/jreagan
+[org.apache.zookeeper.ZooKeeper] : Client environment:user.dir=/home/jreagan/Development/JBoss_A-MQ/jboss-a-mq-6.2.0.redhat-133
+[org.apache.zookeeper.ZooKeeper] : Initiating client connection, connectString=localhost:2181 sessionTimeout=60000 watcher=org.apache.curator.ConnectionState@29a0e378
+[org.apache.zookeeper.ClientCnxn] : Opening socket connection to server localhost.localdomain/127.0.0.1:2181. Will not attempt to authenticate using SASL (unknown error)
+[org.apache.zookeeper.ClientCnxn] : Socket connection established to localhost.localdomain/127.0.0.1:2181, initiating session
+[org.apache.zookeeper.ClientCnxn] : Session establishment complete on server localhost.localdomain/127.0.0.1:2181, sessionid = 0x14f245607720006, negotiated timeout = 40000
+[org.apache.curator.framework.state.ConnectionStateManager] : State change: CONNECTED
+[org.apache.activemq.transport.discovery.DiscoveryTransport] : Adding new broker connection URL: tcp://127.0.0.1:41662
+[org.apache.activemq.transport.discovery.DiscoveryTransport] : Adding new broker connection URL: tcp://127.0.0.1:61617
+[org.apache.activemq.transport.failover.FailoverTransport] : Successfully connected to tcp://127.0.0.1:41662
+[io.fabric8.mq.ProducerThread] : Thread-0 Started to calculate elapsed time ...
+
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 0
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 1
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 2
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 3
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 4
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 5
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 6
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 7
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 8
+[io.fabric8.mq.ProducerThread] : Thread-0 Sent: test message: 9
+[io.fabric8.mq.ProducerThread] : Thread-0 Produced: 10 messages
+[io.fabric8.mq.ProducerThread] : Thread-0 Elapsed time in second : 0 s
+[io.fabric8.mq.ProducerThread] : Thread-0 Elapsed time in milli second : 474 milli seconds
+[io.fabric8.mq.ActiveMQService] : Closed JMS connection
+[[org.apache.zookeeper.ClientCnxn] : EventThread shut down
+org.apache.zookeeper.ZooKeeper] : Session: 0x14f245607720006 closed
+[io.fabric8.mq.ProducerThread] : Thread-0 Producer thread finished
+All threads completed their work
+```
+
+
+## Test 2
+
+Now try running your producer with a larger count (e.g. `--count 1000`) and a delay (`--sleep 1000`). Then try stopping and starting the broker1 and broker2 containers to see what happens...
+
+You can use the command line Console to tell you the current Master and Slave(s) pairs for any Fabric by running the `fabric:cluster-list` command (you might want to give it a path of amq/default to narrow down the results).
+
+You should see the following result:
+
+```
+JBossA-MQ:karaf@root> fabric:cluster-list amq/default
+[cluster]       [masters]        [slaves]          [services]     []
+root            root             -                 tcp://127.0.0.1:61617
+tolerantbroker  brokercontainer  brokercontainer2  tcp://127.0.0.1:41662, mqtt://127.0.0.1:57413, amqp://127.0.0.1:38335, stomp://127.0.0.1:55610
+```
+
+
+You can start and stop containers from the Containers tab in FMC, or from the Console with `fabric:container-{start,stop} <container name>`.
+
+Be patient, it can take up a minute or so for the failover to happen (time to detect and convert Slave to Master, update the Registry with the new Master info, and failover the client connections...). Trust me this will happen way faster than you responding to a call at midnight and making your first cup of coffee...
+
+Stand up and shout with joy “JBoss A-MQ makes me Fault Tolerant!”. Brings a tear to my eye; you were only just a newbie not that long ago...
+
+
+
