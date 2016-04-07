@@ -10,20 +10,19 @@ Explore the Shell on your own for a little bit. Hit <tab> to display a list of c
 Try to give the console following command:
 
 ```
-fabric:welcome - Prints the Fabric welcome message
-info - Prints system information
-list - Lists all installed bundles.
-ls - Lists OSGi services.
-features:list - Lists all existing features available from the defined repositories.
-web:list - Lists details for war bundles.
-log:display - Displays log entries.
-log:tail - Continuously display log entries. Use ctrl-c to quit this command
+fabric:welcome  - Prints the Fabric welcome message
+info            - Prints system information
+list            - Lists all installed bundles.
+ls              - Lists OSGi services.
+features:list   - Lists all existing features available from the defined repositories.
+web:list        - Lists details for war bundles.
+log:display     - Displays log entries.
+log:tail        - Continuously display log entries. Use ctrl-c to quit this command
 ```
 
-Try to give the console following command:
+You also try following command:
 
 ```
-ls | grep MQ
 features:list | more
 ```
 
