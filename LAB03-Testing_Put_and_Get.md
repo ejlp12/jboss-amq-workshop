@@ -4,9 +4,9 @@ JBoss A-MQ includes a messaging test client as part of its distribution that hel
 
 1. Download client application
 
-   You can download the client jar library (`mq-client-1.2.0.redhat-163.jar`) from [this site](https://repository.jboss.org/nexus/content/repositories/ea/io/fabric8/mq/mq-client/1.2.0.redhat-163/) then put it in the `<JBoss A-MQ Home>/extras` directory. 
+   You can download the client jar library (`mq-client-1.2.0.redhat-630045.jar`) from [this site](https://repository.jboss.org/nexus/content/repositories/ea/io/fabric8/mq/mq-client/1.2.0.redhat-630045/mq-client-1.2.0.redhat-630045.jar) then put it in the `<JBoss A-MQ Home>/extras` directory. 
    
-   > https://repository.jboss.org/nexus/content/repositories/ea/io/fabric8/mq/mq-client/
+   > If you did not find the above file, try other version by browsing to this link https://repository.jboss.org/nexus/content/repositories/ea/io/fabric8/mq/mq-client/
 
    You can rename it to `mq-client.jar` to make it simpler.
 
